@@ -1,7 +1,7 @@
 from fpdf import FPDF
 
 pdf = FPDF(orientation="portrait", unit="mm", format="A4")
-def get_minion(context=pdf):
+def get_minion(pdf):
     pdf.add_font(family="Minion", fname="C:\Fonts\Minion\TTF\MinionProReg.ttf",
                  uni=True)
 
