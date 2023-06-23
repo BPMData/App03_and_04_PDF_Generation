@@ -69,3 +69,4 @@ pdf.output("output_lined.pdf")
 # pdf.cell(w=0, h=12, txt="Hello There", align="L", ln=1, border=1)
 
 print("Print done")
+print("Why have the option to amend if it just means the push will be rejected every time?")
