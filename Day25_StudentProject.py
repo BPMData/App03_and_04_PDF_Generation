@@ -16,6 +16,7 @@ for filepath in filepaths:
         lines = file.readlines()
         text="".join(lines)
         text= re.sub(r'\[\d+\]',"", text)
+        text = text.replace('\n', '\n    ')
     pathname = Path(filepath).stem
     pdf.add_page()
     # Generate page header/title
@@ -24,8 +25,8 @@ for filepath in filepaths:
              fill=False, border=True)
     # Generate body text
     pdf.set_font(family="Minion", size=14)
-    pdf.multi_cell(w=0, h=12, txt=f"{text}", border=0)
+    pdf.multi_cell(w=0, h=12, txt=f"    {text}", border=0)
 
 if not os.path.exists("invoice_data/txts/pdfs"):
         os.mkdir("invoice_data/txts/pdfs")
-pdf.output(f"invoice_data/txts/pdfs/concat3_re.pdf")
+pdf.output(f"invoice_data/txts/pdfs/concat4_indents.pdf")
