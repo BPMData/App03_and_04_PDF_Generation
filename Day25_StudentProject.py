@@ -1,6 +1,5 @@
 from fpdf import FPDF
 from funcs import get_minion
-import pandas as pd
 import glob
 from pathlib import Path
 import os
@@ -14,8 +13,23 @@ filepaths = glob.glob("invoice_data/txts/*txt")
 for filepath in filepaths:
     with open(filepath, "r") as file:
         lines = file.readlines()
-        text="".join(lines)
-        text= re.sub(r'\[\d+\]',"", text)
+        text = "".join(lines)
+
+        """# The more elegant solution, going forward, is just use file.read(), which
+        # will read the entire .txt file as a single string with line breaks interpreted rather than
+        # printed literally!
+        
+        But x = file.readlines()
+        y = ''.join(x) 
+        
+        However, obviously not as elegant as:
+        
+        x = file.read()
+        
+        also works.
+        """
+
+        text = re.sub(r'\[\d+\]', "", text)
         text = text.replace('\n', '\n    ')
     pathname = Path(filepath).stem
     pdf.add_page()
@@ -28,5 +42,5 @@ for filepath in filepaths:
     pdf.multi_cell(w=0, h=12, txt=f"    {text}", border=0)
 
 if not os.path.exists("invoice_data/txts/pdfs"):
-        os.mkdir("invoice_data/txts/pdfs")
+    os.mkdir("invoice_data/txts/pdfs")
 pdf.output(f"invoice_data/txts/pdfs/concat4_indents.pdf")
