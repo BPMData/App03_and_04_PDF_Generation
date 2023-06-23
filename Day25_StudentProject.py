@@ -4,6 +4,7 @@ import pandas as pd
 import glob
 from pathlib import Path
 import os
+import re
 
 pdf = FPDF(orientation="p", unit="mm", format="A4")
 get_minion(pdf)
@@ -14,6 +15,7 @@ for filepath in filepaths:
     with open(filepath, "r") as file:
         lines = file.readlines()
         text="".join(lines)
+        text= re.sub(r'\[\d+\]',"", text)
     pathname = Path(filepath).stem
     pdf.add_page()
     # Generate page header/title
@@ -26,4 +28,4 @@ for filepath in filepaths:
 
 if not os.path.exists("invoice_data/txts/pdfs"):
         os.mkdir("invoice_data/txts/pdfs")
-pdf.output(f"invoice_data/txts/pdfs/concat2.pdf")
+pdf.output(f"invoice_data/txts/pdfs/concat3_re.pdf")
